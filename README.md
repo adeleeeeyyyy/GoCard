@@ -9,10 +9,7 @@ A professional, high-performance CLI tool built in **Go** that generates stunnin
 - **🎨 Stunning UI**: Modern Neo-Brutalism design with soft pastel colors, rounded corners, and glassmorphism.
 - **✨ Professional Icons**: Integrated **Lucide Icons** for the UI and **Devicon/Simple Icons** for programming languages.
 - **⚡ Fast & Lightweight**: Powered by Go and server-side rendering.
-- **📸 Smart Export**: 
-  - **In-Browser PNG**: Download high-quality cards directly from your browser.
-  - **Headless CLI PNG**: Export via `--png` flag using `chromedp` (requires Chrome/Chromium).
-- **📄 README Preview**: Automatically snippets your repository's README for a complete overview.
+- ** README Preview**: Automatically snippets your repository's README for a complete overview.
 
 ## 🛠️ Installation
 
