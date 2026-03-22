@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-Hug - GitHub Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Unbounded:wght@400;700&display=swap');
+        
+        :root {
+            --bg: #fdf2f8; /* Soft pastel pink bg */
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --primary: #f472b6; /* Pink */
+            --secondary: #60a5fa; /* Blue */
+            --accent: #fbbf24; /* Yellow */
+            --line: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--line) 1px, transparent 0);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            position: relative;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 4px solid var(--line);
+            border-radius: 32px;
+            box-shadow: 12px 12px 0px var(--line);
+            width: 100%;
+            max-width: 550px;
+            padding: 40px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 18px 18px 0px var(--line);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            border: 4px solid var(--line);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .header {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .avatar-container {
+            position: relative;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            border: 4px solid var(--line);
+            background: #fff;
+            object-fit: cover;
+            transform: rotate(-3deg);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .avatar {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .repo-info {
+            flex: 1;
+        }
+
+        .owner-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 4px;
+        }
+
+        .repo-name {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+            word-break: break-all;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #374151;
+            margin-bottom: 30px;
+            min-height: 50px;
+        }
+
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border: 3px solid var(--line);
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 4px 4px 0px var(--line);
+            transition: all 0.2s ease;
+        }
+
+        .pill:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--line);
+        }
+
+        .pill.stars { background: #fef08a; }
+        .pill.forks { background: #bae6fd; }
+        .pill.lang { background: #fecdd3; }
+
+        .readme-sec {
+            background: #fff;
+            border: 3px solid var(--line);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.1);
+        }
+
+        .readme-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .readme-content {
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 120px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            background: #86efac;
+            color: var(--line);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 4px solid var(--line);
+            border-radius: 20px;
+            box-shadow: 6px 6px 0px var(--line);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: #bae6fd;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px var(--line);
+        }
+
+        .btn.btn-secondary:hover {
+            background: #7dd3fc;
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--line);
+        }
+
+        /* Decorative blobs */
+        .blob {
+            position: absolute;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.4;
+        }
+        .blob-1 { top: 10%; left: 10%; width: 100px; height: 100px; background: var(--primary); border-radius: 50%; }
+        .blob-2 { bottom: 10%; right: 10%; width: 120px; height: 120px; background: var(--secondary); border-radius: 50%; }
+
+        @media print {
+            .footer { display: none; }
+        }
+
+        /* Icon styling */
+        .icon { width: 18px; height: 18px; stroke-width: 2.5px; }
+        .lang-icon { width: 20px; height: 20px; object-fit: contain; }
+    </style>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="card">
+        <div class="header">
+            <div class="avatar-container">
+                <img class="avatar" src="https://avatars.githubusercontent.com/u/75571386?v=4" alt="avatar">
+            </div>
+            <div class="repo-info">
+                <div class="owner-name">@adeleeeeyyyy</div>
+                <h1 class="repo-name">API-Hug</h1>
+            </div>
+        </div>
+
+        <p class="description">We all know the local server is definitely faster, but i just want to make it more fun! and of course you would like to "hug" your API with 50000 requests 🥰</p>
+
+        <div class="stats">
+            <div class="pill stars" style="background: #fef08a;">
+                <i data-lucide="star" class="icon"></i>
+                1
+            </div>
+            <div class="pill forks" style="background: #bae6fd;">
+                <i data-lucide="git-fork" class="icon"></i>
+                0
+            </div>
+            
+            <div class="pill lang" style="background: #fecdd3;">
+                <img id="lang-img" class="lang-icon" src="" alt="">
+                Go
+            </div>
+            
+        </div>
+
+        <div class="readme-sec">
+            <div class="readme-title">
+                <i data-lucide="file-text" class="icon" style="width:14px; height:14px;"></i>
+                README.md Preview
+            </div>
+            <div class="readme-content"># API Stress Tester & Comparator
+
+A lightweight, Go-based command-line (CLI) tool for stress testing API endpoints and comparing performance between two environments (e.g., Local vs. Server/Production). 
+
+> *We all know the local server is definitely faster, but I just want to make it more fun! and of course you would like to "hug" your API with 50000 requests per second* 🥰
+
+## ✨ Features
+- **Concurrent Load Testing:** Uses goroutines to send HTTP requests simultaneously.
+- **Direct Comparison:** Automatically tests two URLs (Local & Server) and concludes which environment is faster.
+- **
+
+... [Readme cutted]</div>
+        </div>
+
+        <div class="footer">
+            <a href="https://github.com/adeleeeeyyyy/API-Hug" target="_blank" class="btn">
+                View Repo
+                <i data-lucide="external-link" class="icon" style="margin-left:8px;"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Dynamic Language Icon Logic
+        const lang = "Go".toLowerCase().replace(/[+#]/g, (m) => ({ '+': 'plus', '#': 'sharp' }[m]));
+        const langImg = document.getElementById('lang-img');
+        if (langImg) {
+            // Priority 1: Devicon (Using concat since backticks break Go string)
+            langImg.src = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/" + lang + "/" + lang + "-original.svg";
+            
+            // Fallback: Simple Icons if Devicon fails
+            langImg.onerror = () => {
+                langImg.src = "https://cdn.simpleicons.org/" + lang;
+                langImg.onerror = () => {
+                   langImg.style.display = 'none'; // Hide if both fail
+                };
+            };
+        }
+    </script>
+</body>
+</html>
