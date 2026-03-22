@@ -1,4 +1,4 @@
-# 🚀 GitHub Repo Card CLI
+# 🚀 GoCard
 
 A professional, high-performance CLI tool built in **Go** that generates stunning, **Neo-Brutalism** style repository cards for your GitHub projects.
 
