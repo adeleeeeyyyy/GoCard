@@ -2,8 +2,7 @@
 
 A professional, high-performance CLI tool built in **Go** that generates stunning, **Neo-Brutalism** style repository cards for your GitHub projects.
 
-![Repo Card Preview](https://github.com/adeleeeeyyyy/GoCard/raw/main/mockup.png)
-*(Replace with actual generated image or screenshot)*
+![Repo Card Preview](https://raw.githubusercontent.com/adeleeeeyyyy/GoCard/main/raw/main/mockup.png)
 
 ## ✨ Features
 
